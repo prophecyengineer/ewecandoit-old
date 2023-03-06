@@ -34,7 +34,7 @@ export async function generateStaticParams<StaticParams>() {
   return slugs;
 }
 
-export async function getLessons({ params }) {
+async function getLessons({ params }: any) {
   const variables = { slug: params.slug };
   const query = `query getLessons($slug: [String]!){
     lessonCollection(where: {tags_contains_some: $slug}) {
@@ -67,7 +67,12 @@ export async function getLessons({ params }) {
   };
 }
 
-export default async function Topics(props) {
+interface Lesson {
+  slug: string;
+  title: string;
+}
+
+export default async function Topics(props: any) {
   const demoParam = { params: { slug: `${props.params.topic}` } };
   const data = await getLessons(demoParam);
 
@@ -78,7 +83,7 @@ export default async function Topics(props) {
       <div>
         <h1> {props.params.topic} </h1>
 
-        {data.props.lesson.map((lesson) => (
+        {data.props.lesson.map((lesson: Lesson) => (
           <Link key={lesson.slug} href={`${props.params.topic}/${lesson.slug}`}>
             <h3> {lesson.title} </h3>
           </Link>

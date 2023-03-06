@@ -6,7 +6,7 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import Link from "next/link";
 const inter = Inter({ subsets: ["latin"] });
 
-export async function getLesson({ params }) {
+async function getLesson({ params }: any) {
   const variables = { lesson: params.lesson };
   const query = `
   query getLesson($lesson: String!) {
@@ -41,7 +41,14 @@ export async function getLesson({ params }) {
   };
 }
 
-export default async function Lesson(props) {
+interface Lesson {
+  slug: string;
+  title: string;
+  main: {
+    json: any;
+  };
+}
+export default async function Lesson(props: any) {
   const demoParam = {
     params: {
       slug: `${props.params.topic}`,
@@ -61,8 +68,8 @@ export default async function Lesson(props) {
           Back to {props.params.topic}
         </Link>
 
-        {data.props.lesson.map((lesson) => (
-          <div key={lesson}>
+        {data.props.lesson.map((lesson: Lesson) => (
+          <div key={lesson.slug}>
             <h1> {lesson.title} </h1>
 
             {documentToReactComponents(lesson.main.json)}
