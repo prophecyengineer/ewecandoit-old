@@ -7,7 +7,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 6rem;
+  border-radius: 40px;
+  margin: 15px;
   min-height: 100vh;
+  background-color: whitesmoke;
+}
+
+.content {
+  width: 80%;
 }
 
 .description {
